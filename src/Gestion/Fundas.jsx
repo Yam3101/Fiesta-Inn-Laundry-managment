@@ -105,7 +105,7 @@ const Fundas = () => {
 					<h2 className="text-2xl font-semibold mb-4">
 						Movimientos de fundas de almohada
 					</h2>
-					<table className="table-auto w-full text-left border-collapse bg-white shadow-md rounded-md">
+					<table className="table-auto w-full text-left border-collapse bg-white shadow-md shadow-stone-500 rounded-md">
 						<thead>
 							<tr className="bg-gray-200">
 								<th className="px-4 py-2 text-center dmsans font-semibold">

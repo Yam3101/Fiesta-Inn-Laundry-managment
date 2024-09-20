@@ -104,7 +104,7 @@ const Duvets = () => {
 			<div className="flex justify-center items-center">
 				<div className="sm:w-3/4 w-96">
 					<h2 className="text-2xl font-semibold mb-4">Movimientos de Duvets</h2>
-					<table className="table-auto w-full text-left border-collapse bg-white shadow-md rounded-md">
+					<table className="table-auto w-full text-left border-collapse bg-white shadow-md shadow-stone-500 rounded-md">
 						<thead>
 							<tr className="bg-gray-200">
 								<th className="px-4 py-2 text-center dmsans font-semibold">
