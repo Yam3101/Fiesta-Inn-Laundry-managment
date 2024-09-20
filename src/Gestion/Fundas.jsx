@@ -166,7 +166,7 @@ const Fundas = () => {
 
 			{modalOpen && (
 				<div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
-					<div className="bg-white p-8 rounded-lg shadow-lg w-1/3">
+					<div className="bg-white p-8 rounded-lg shadow-lg sm:w-1/3">
 						<h2 className="text-lg font-bold mb-4">Editar Cantidad</h2>
 						<input
 							type="number"
@@ -177,7 +177,7 @@ const Fundas = () => {
 						<div className="flex justify-end">
 							{/* biome-ignore lint/a11y/useButtonType: <explanation> */}
 							<button
-								className="bg-blue-500 text-white px-4 py-2 rounded-md mr-2 hover:bg-blue-600"
+								className="bg-violet-500 text-white px-4 py-2 rounded-md mr-2 hover:bg-violet-600"
 								onClick={handleGuardarEdicion}
 							>
 								Guardar
@@ -195,7 +195,7 @@ const Fundas = () => {
 			)}
 			{confirmDeleteOpen && (
 				<div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
-					<div className="bg-white p-8 rounded-lg shadow-lg w-1/3">
+					<div className="bg-white p-8 rounded-lg shadow-lg sm:w-1/3 w-96">
 						<h2 className="text-lg font-bold mb-4">Confirmar Borrado</h2>
 						<p>¿Estás seguro de que deseas eliminar este movimiento?</p>
 						<div className="flex justify-end mt-4">
