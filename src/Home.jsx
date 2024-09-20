@@ -4,7 +4,7 @@ import CardHome from "./components/CardHome";
 
 function Home() {
 	return (
-		<div className="overflow-x-hidden w-screen h-screen">
+		<div className="overflow-x-hidden w-screen h-screen sm:pb-5 pb-14">
 			<div className="flex justify-end">
 				<NavbarHome />
 			</div>
@@ -24,7 +24,10 @@ function Home() {
 			<div className="flex flex-wrap justify-center gap-3 px-8 pt-7">
 				<CardHome nameCard="Sabanas" managePath="Gestion/Sabanas" />
 				<CardHome nameCard="Toallas" managePath="Gestion/Toallas" />
-				<CardHome nameCard="Toallas de mano" managePath="Gestion/Toallasdemano" />
+				<CardHome
+					nameCard="Toallas de mano"
+					managePath="Gestion/Toallasdemano"
+				/>
 				<CardHome nameCard="Tapetes" managePath="Gestion/Tapetes" />
 				<CardHome nameCard="Duvets" managePath="Gestion/Duvets" />
 				<CardHome nameCard="Fundas de almohada" managePath="Gestion/Fundas" />

@@ -38,12 +38,12 @@ const CardHome = ({ nameCard, managePath }) => {
 
 	return (
 		<div className="bg-white shadow-md shadow-stone-600 w-80 rounded-md text-center py-6 relative">
-			<h1>{nameCard}</h1>
-			<img src="" alt="imgRopa" />
+			<h1 className="timesroman text-2xl italic font-semibold">{nameCard}</h1>
+			<img className="py-3" src="" alt="imgRopa" />
 			<div className="flex justify-center gap-1 dmsans items-center">
 				{/* biome-ignore lint/a11y/useButtonType: <explanation> */}
 				<button
-					className="bg-rose-600 hover:bg-rose-700 text-white px-7 py-2 rounded-md shadow-sm shadow-black duration-300"
+					className="bg-rose-600 hover:bg-rose-700 text-white px-8 py-2 rounded-md shadow-sm shadow-black duration-300"
 					onClick={() => setIsModalOpen(true)}
 				>
 					Agregar
@@ -58,7 +58,7 @@ const CardHome = ({ nameCard, managePath }) => {
 
 			{isModalOpen && (
 				<div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-					<div className="bg-white p-5 rounded-md shadow-md w-1/3">
+					<div className="bg-white p-5 rounded-md shadow-md w-80">
 						<h2 className="text-xl font-semibold mb-4">
 							Agregar Cantidad para {nameCard}
 						</h2>
@@ -69,7 +69,7 @@ const CardHome = ({ nameCard, managePath }) => {
 							onChange={(e) => setCantidad(e.target.value)}
 							className="border w-full rounded px-2 py-1 mb-4"
 						/>
-						<div className="flex justify-end gap-2">
+						<div className="flex justify-center gap-2">
 							{/* biome-ignore lint/a11y/useButtonType: <explanation> */}
 							<button
 								className="bg-rose-600 text-white px-4 py-2 rounded-md hover:bg-rose-700 duration-300"
