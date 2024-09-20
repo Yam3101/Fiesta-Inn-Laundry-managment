@@ -102,23 +102,31 @@ const Tapetes = () => {
 				</Link>
 			</div>
 			<div className="flex justify-center items-center h-full">
-				<div className="w-3/4">
+				<div className="sm:w-3/4 w-96">
 					<h2 className="text-2xl font-semibold mb-4">
 						Movimientos de Tapetes
 					</h2>
 					<table className="table-auto w-full text-left border-collapse bg-white shadow-md rounded-md">
 						<thead>
 							<tr className="bg-gray-200">
-								<th className="px-4 py-2">Cantidad</th>
-								<th className="px-4 py-2">Fecha y Hora</th>
-								<th className="px-4 py-2 text-center">Acciones</th>
+								<th className="px-4 py-2 text-center dmsans font-semibold">
+									Cantidad
+								</th>
+								<th className="px-4 py-2 text-center dmsans font-semibold">
+									Fecha y Hora
+								</th>
+								<th className="px-4 py-2 text-center dmsans font-semibold">
+									Acciones
+								</th>
 							</tr>
 						</thead>
 						<tbody>
 							{movimientos.map((movimiento) => (
 								<tr key={movimiento.id} className="border-b">
-									<td className="px-4 py-2">{movimiento.cantidad}</td>
-									<td className="px-4 py-2">
+									<td className="sm:px-4 px-1 py-2 sm:text-left text-center">
+										{movimiento.cantidad}
+									</td>
+									<td className="px-4 py-2 justify-center items-center flex">
 										{movimiento.timestamp.toLocaleString("es-ES", {
 											year: "numeric",
 											month: "2-digit",
@@ -128,17 +136,17 @@ const Tapetes = () => {
 											second: "2-digit",
 										})}
 									</td>
-									<td className="px-4 py-2 text-center">
+									<td className="px-4 py-2 sm:text-center">
 										{/* biome-ignore lint/a11y/useButtonType: <explanation> */}
 										<button
-											className="bg-blue-500 text-white px-2 py-1 rounded-md mr-2 hover:bg-blue-600"
+											className="bg-teal-600 text-white w-16 px-2 py-1 rounded-md mr-2 hover:bg-teal-700"
 											onClick={() => handleEditar(movimiento)}
 										>
 											Editar
 										</button>
 										{/* biome-ignore lint/a11y/useButtonType: <explanation> */}
 										<button
-											className="bg-red-500 text-white px-2 py-1 rounded-md hover:bg-red-600"
+											className="bg-teal-600 text-white w-16 px-2 py-1 rounded-md mr-2 hover:bg-teal-700"
 											onClick={() => handleBorrar(movimiento)}
 										>
 											Borrar
