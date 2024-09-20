@@ -101,12 +101,12 @@ const Tapetes = () => {
 					Volver al Inicio
 				</Link>
 			</div>
-			<div className="flex justify-center items-center h-full">
+			<div className="flex justify-center items-center">
 				<div className="sm:w-3/4 w-96">
 					<h2 className="text-2xl font-semibold mb-4">
 						Movimientos de Tapetes
 					</h2>
-					<table className="table-auto w-full text-left border-collapse bg-white shadow-md rounded-md">
+					<table className="table-auto w-full text-left border-collapse bg-white shadow-md shadow-stone-500 rounded-md">
 						<thead>
 							<tr className="bg-gray-200">
 								<th className="px-4 py-2 text-center dmsans font-semibold">
@@ -146,7 +146,7 @@ const Tapetes = () => {
 										</button>
 										{/* biome-ignore lint/a11y/useButtonType: <explanation> */}
 										<button
-											className="bg-teal-600 text-white w-16 px-2 py-1 rounded-md mr-2 hover:bg-teal-700"
+											className="bg-red-500 text-white w-16 px-2 py-1 rounded-md hover:bg-red-600"
 											onClick={() => handleBorrar(movimiento)}
 										>
 											Borrar
