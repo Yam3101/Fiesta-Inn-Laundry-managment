@@ -8,20 +8,19 @@ import {
 	deleteDoc,
 	orderBy,
 } from "firebase/firestore";
-import { db } from "../firebaseConfig"; // Ajusta la ruta según tu configuración
+import { db } from "../firebaseConfig";
 import NavbarHome from "../components/NavbarHome";
 import { Link } from "react-router-dom";
 
 const Sabanas = () => {
 	const [movimientos, setMovimientos] = useState([]);
-	const [total, setTotal] = useState(0); // Estado para el total
+	const [total, setTotal] = useState(0);
 	const [modalOpen, setModalOpen] = useState(false);
 	const [confirmDeleteOpen, setConfirmDeleteOpen] = useState(false);
 	const [currentMovimiento, setCurrentMovimiento] = useState(null);
 	const [newCantidad, setNewCantidad] = useState("");
 	const [movimientoToDelete, setMovimientoToDelete] = useState(null);
 
-	// Cargar los movimientos de la colección de Firestore
 	useEffect(() => {
 		const q = query(
 			collection(db, "lavanderia", "sabanas", "movimientos"),
@@ -37,7 +36,7 @@ const Sabanas = () => {
 				movs.push({
 					id: doc.id,
 					cantidad: data.cantidad,
-					timestamp: data.timestamp?.toDate() || new Date(), // Convertir el timestamp a fecha legible
+					timestamp: data.timestamp?.toDate() || new Date(),
 				});
 				sumaTotal += data.cantidad;
 			});
@@ -48,14 +47,12 @@ const Sabanas = () => {
 		return () => unsubscribe();
 	}, []);
 
-	// Manejar la edición de la cantidad
 	const handleEditar = (movimiento) => {
 		setCurrentMovimiento(movimiento);
 		setNewCantidad(movimiento.cantidad);
-		setModalOpen(true); // Abre el modal de edición
+		setModalOpen(true);
 	};
 
-	// Guardar la edición de la cantidad
 	const handleGuardarEdicion = async () => {
 		if (currentMovimiento && newCantidad !== "") {
 			const movimientoRef = doc(
@@ -68,17 +65,15 @@ const Sabanas = () => {
 			await updateDoc(movimientoRef, {
 				cantidad: Number.parseInt(newCantidad),
 			});
-			setModalOpen(false); // Cierra el modal de edición
+			setModalOpen(false);
 		}
 	};
 
-	// Mostrar el modal de confirmación antes de borrar un movimiento
 	const handleBorrar = (movimiento) => {
 		setMovimientoToDelete(movimiento);
-		setConfirmDeleteOpen(true); // Abre el modal de confirmación
+		setConfirmDeleteOpen(true);
 	};
 
-	// Confirmar y borrar el movimiento
 	const confirmarBorrar = async () => {
 		if (movimientoToDelete) {
 			const movimientoRef = doc(
@@ -89,7 +84,7 @@ const Sabanas = () => {
 				movimientoToDelete.id,
 			);
 			await deleteDoc(movimientoRef);
-			setConfirmDeleteOpen(false); // Cierra el modal de confirmación
+			setConfirmDeleteOpen(false);
 		}
 	};
 
@@ -99,18 +94,15 @@ const Sabanas = () => {
 				<NavbarHome />
 			</div>
 			<div className="absolute top-4 left-4">
-				{" "}
-				{/* Ajuste del botón en la parte superior izquierda */}
 				<Link
 					to="/"
 					className="bg-rose-600 text-white px-4 py-2 rounded-md shadow-sm shadow-black hover:shadow-md hover:shadow-black duration-300"
 				>
-					Volver al Home
+					Volver al Inicio
 				</Link>
 			</div>
 			<div className="flex justify-center items-center h-full">
 				<div className="w-3/4">
-					{/* Encabezado agregado */}
 					<h2 className="text-2xl font-semibold mb-4">
 						Movimientos de Sabanas
 					</h2>
@@ -165,7 +157,6 @@ const Sabanas = () => {
 				</div>
 			</div>
 
-			{/* Modal para editar cantidad */}
 			{modalOpen && (
 				<div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
 					<div className="bg-white p-8 rounded-lg shadow-lg w-1/3">
@@ -196,7 +187,6 @@ const Sabanas = () => {
 				</div>
 			)}
 
-			{/* Modal de confirmación para borrar */}
 			{confirmDeleteOpen && (
 				<div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
 					<div className="bg-white p-8 rounded-lg shadow-lg w-1/3">

@@ -96,7 +96,7 @@ const Toallasdemano = () => {
 					to="/"
 					className="bg-rose-600 text-white px-4 py-2 rounded-md shadow-sm shadow-black hover:shadow-md hover:shadow-black duration-300"
 				>
-					Volver al Home
+					Volver al Inicio
 				</Link>
 			</div>
 			<div className="flex justify-center items-center h-full">
