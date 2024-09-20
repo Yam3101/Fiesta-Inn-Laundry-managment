@@ -1,6 +1,9 @@
-
-
-document.body.style.backgroundColor = "#F2F2F2";
-
+function Gestionmes() {
+	return (
+		<div>
+			<h1>Gestion Mes</h1>
+		</div>
+	);
+}
 
 export default Gestionmes;
