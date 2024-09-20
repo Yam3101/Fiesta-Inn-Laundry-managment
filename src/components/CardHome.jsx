@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
+import { doc, addDoc, collection, serverTimestamp } from 'firebase/firestore';
 import { Link } from 'react-router-dom';
 import { db } from '../firebaseConfig'; // Ajusta la ruta según tu estructura de carpetas
 
@@ -7,23 +7,20 @@ const CardHome = ({ nameCard, managePath }) => {
     const [cantidad, setCantidad] = useState('');
     const [isModalOpen, setIsModalOpen] = useState(false);
 
-    // Función para sumar la cantidad a Firestore
+   
+
     async function agregarCantidad(collectionName, documentId, cantidad) {
         try {
+            // Obtener la referencia al documento con el nombre específico (e.g. sabanas, toallas)
             const docRef = doc(db, collectionName, documentId);
-            const docSnap = await getDoc(docRef);
-
-            if (docSnap.exists()) {
-                // Documento existe, actualizar la cantidad
-                const data = docSnap.data();
-                const nuevaCantidad = (data.cantidad || 0) + cantidad;
-                await updateDoc(docRef, { cantidad: nuevaCantidad });
-            } else {
-                // Documento no existe, crearlo con la cantidad
-                await setDoc(docRef, { cantidad: cantidad });
-            }
-
-            console.log("Cantidad guardada con éxito");
+            
+            // Crear un nuevo documento en la subcolección 'movimientos'
+            await addDoc(collection(docRef, 'movimientos'), {
+                cantidad: cantidad,
+                timestamp: serverTimestamp() // Guardar la fecha y hora actuales
+            });
+            
+            console.log("Cantidad y fecha guardadas con éxito en la subcolección");
         } catch (e) {
             console.error("Error al guardar la cantidad: ", e);
         }
