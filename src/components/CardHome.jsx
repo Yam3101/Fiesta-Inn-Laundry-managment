@@ -3,7 +3,7 @@ import { doc, addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { Link } from "react-router-dom";
 import { db } from "../firebaseConfig";
 
-const CardHome = ({ nameCard, managePath }) => {
+const CardHome = ({ nameCard, managePath, imgCont }) => {
 	const [cantidad, setCantidad] = useState("");
 	const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -37,9 +37,9 @@ const CardHome = ({ nameCard, managePath }) => {
 	};
 
 	return (
-		<div className="bg-white shadow-md shadow-stone-600 w-80 rounded-md text-center py-6 relative">
+		<div className="bg-white shadow-md shadow-stone-600 w-80 rounded-md text-center py-6 relative justify-center items-center flex flex-col">
 			<h1 className="timesroman text-2xl italic font-semibold">{nameCard}</h1>
-			<img className="py-3" src="" alt="imgRopa" />
+			<img className="p1-3" width={120} src={imgCont} alt="imgRopa" />
 			<div className="flex justify-center gap-1 dmsans items-center">
 				{/* biome-ignore lint/a11y/useButtonType: <explanation> */}
 				<button

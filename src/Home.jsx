@@ -12,25 +12,46 @@ function Home() {
 				<div className="justify-center text-center">
 					<Link to="/Perfil">
 						{/* biome-ignore lint/a11y/useButtonType: <explanation> */}
-						<button className="bg-rose-600 text-white twcenmt text-xl px-9 py-2 rounded-md shadow-sm shadow-black hover:shadow-md hover:shadow-black duration-300">
+						<button className="bg-rose-600 hover:bg-rose-700 text-white twcenmt text-xl px-9 py-2 rounded-md shadow-sm hover:shadow-md shadow-stone-900 hover:shadow-black duration-300">
 							Perfil
 						</button>
 					</Link>
 				</div>
-				<h1 className="roboto font-semibold text-center text-3xl pt-5 sm:pt-0 teachers">
+				<h1 className="roboto font-bold text-center text-3xl pt-5 sm:pt-0 teachers">
 					GESTIÓN DE LAVANDERIA
 				</h1>
 			</div>
 			<div className="flex flex-wrap justify-center gap-3 px-8 pt-7">
-				<CardHome nameCard="Sabanas" managePath="Gestion/Sabanas" />
-				<CardHome nameCard="Toallas" managePath="Gestion/Toallas" />
 				<CardHome
+					imgCont="./sabanasImg.svg"
+					nameCard="Sabanas"
+					managePath="Gestion/Sabanas"
+				/>
+				<CardHome
+					imgCont="./toallasImg.svg"
+					nameCard="Toallas"
+					managePath="Gestion/Toallas"
+				/>
+				<CardHome
+					imgCont="./tManoImg.svg"
 					nameCard="Toallas de mano"
 					managePath="Gestion/Toallasdemano"
 				/>
-				<CardHome nameCard="Tapetes" managePath="Gestion/Tapetes" />
-				<CardHome nameCard="Duvets" managePath="Gestion/Duvets" />
-				<CardHome nameCard="Fundas de almohada" managePath="Gestion/Fundas" />
+				<CardHome
+					imgCont="./tapetesImg.svg"
+					nameCard="Tapetes"
+					managePath="Gestion/Tapetes"
+				/>
+				<CardHome
+					imgCont="./duvetsImg.svg"
+					nameCard="Duvets"
+					managePath="Gestion/Duvets"
+				/>
+				<CardHome
+					imgCont="./fundasImg.svg"
+					nameCard="Fundas de almohada"
+					managePath="Gestion/Fundas"
+				/>
 			</div>
 		</div>
 	);
