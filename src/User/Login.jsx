@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { auth } from "../firebaseConfig";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
+import NavbarHome from "../components/NavbarHome";
+
 
 const Login = () => {
 	const [email, setEmail] = useState("");
@@ -19,7 +21,11 @@ const Login = () => {
 	};
 
 	return (
-		<div className="bg-white shadow-md shadow-stone-600 w-80 mx-auto mt-20 rounded-md text-center py-6 relative">
+		<div className="overflow-x-hidden w-screen h-screen sm:pb-5 pb-14">
+			<div className="flex justify-end">
+				<NavbarHome />
+			</div>
+			<div className="bg-white shadow-md shadow-stone-600 w-80 mx-auto mt-20 rounded-md text-center py-6 relative">
 			<h1 className="timesroman text-2xl italic font-semibold">
 				Iniciar Sesión
 			</h1>
@@ -45,6 +51,16 @@ const Login = () => {
 					Iniciar Sesión
 				</button>
 			</form>
+			<p className="mt-4 text-sm">
+				¿No tienes cuenta?{" "}
+				<span
+					className="text-rose-600 hover:underline cursor-pointer"
+					onClick={() => navigate("/registro")}
+				>
+					¡Regístrate!
+				</span>
+			</p>
+		</div>
 		</div>
 	);
 };

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { auth } from "../firebaseConfig";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
+import NavbarHome from "../components/NavbarHome";
 
 const Registro = () => {
 	const [email, setEmail] = useState("");
@@ -19,6 +20,10 @@ const Registro = () => {
 	};
 
 	return (
+		<div className="overflow-x-hidden w-screen h-screen sm:pb-5 pb-14">
+			<div className="flex justify-end">
+				<NavbarHome />
+			</div>
 		<div className="bg-white shadow-md shadow-stone-600 w-80 mx-auto mt-20 rounded-md text-center py-6 relative">
 			<h1 className="timesroman text-2xl italic font-semibold">Registro</h1>
 			<form onSubmit={handleRegister} className="px-6">
@@ -43,6 +48,16 @@ const Registro = () => {
 					Registrarse
 				</button>
 			</form>
+			<p className="mt-4 text-sm">
+				¿Ya tienes una cuenta?{" "}
+				<span
+					className="text-rose-600 hover:underline cursor-pointer"
+					onClick={() => navigate("/login")}
+				>
+					Inicia sesion
+				</span>
+			</p>
+		</div>
 		</div>
 	);
 };

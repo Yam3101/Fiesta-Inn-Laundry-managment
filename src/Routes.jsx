@@ -9,6 +9,7 @@ import Duvets from './Gestion/Duvets';
 import Fundas from './Gestion/Fundas';
 import Registro from './User/Registro';
 import Login from './User/Login';
+import Perfil from './User/Perfil';
 
 function RoutesTo() {
 	return (
@@ -17,6 +18,7 @@ function RoutesTo() {
 				<Route path="/" element={<Home />} />
 				<Route path="/registro" element={<Registro />} />
         		<Route path="/login" element={<Login />} />
+				<Route path="/Perfil" element={<Perfil />} />
 				<Route path="/Gestion/Sabanas" element={<Sabanas />} />
 				<Route path="/Gestion/Toallas" element={<Toallas />} />
 				<Route path="/Gestion/Toallasdemano" element={<Toallasdemano />} />
