@@ -45,18 +45,19 @@ const Perfil = () => {
 					Volver al Inicio
 				</Link>
 			</div>
-			<div className="bg-white shadow-md shadow-stone-600 w-80 mx-auto mt-20 rounded-md text-center py-6 relative">
+			<div className="bg-white shadow-md shadow-stone-600 w-[49rem] mx-auto mt-20 rounded-md px-10 py-6 relative">
 				{user ? (
-					<div>
-						<h1 className="timesroman text-2xl italic font-semibold mb-4">
+					<div className="flex flex-col gap-2">
+						<h1 className="timesroman text-2xl italic font-semibold animation1">
 							Perfil de Usuario
 						</h1>
-						<p className="text-gray-800 text-lg">Correo: {user.email}</p>
-						<p className="text-gray-500 text-sm mb-4">UID: {user.uid}</p>
+						<p className="text-gray-900 text-lg">Correo: {user.email}</p>
+						<p className="text-gray-600 text-sm mb-4">User ID: {user.uid}</p>
+
 						{/* biome-ignore lint/a11y/useButtonType: <explanation> */}
 						<button
 							onClick={handleLogout}
-							className="bg-rose-600 hover:bg-rose-700 text-white px-8 py-2 rounded-md shadow-sm shadow-black duration-300"
+							className="bg-rose-600 hover:bg-rose-700 text-white py-2 rounded-md shadow-sm shadow-black duration-300 text-center w-48"
 						>
 							Cerrar sesión
 						</button>

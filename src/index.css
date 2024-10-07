@@ -33,3 +33,18 @@
 .timesroman {
   font-family: Times New Roman;
 }
+
+@keyframes animated1 {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+}
+
+.animation1 {
+  animation: animated1 0.7s ease-in-out;
+}

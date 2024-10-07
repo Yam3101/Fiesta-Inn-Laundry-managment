@@ -24,34 +24,34 @@ const Login = () => {
 			<div className="flex justify-end">
 				<NavbarHome />
 			</div>
-			<div className="bg-white shadow-md shadow-stone-600 w-80 mx-auto mt-20 rounded-md text-center py-6 relative">
-				<h1 className="timesroman text-2xl italic font-semibold">
+			<div className="bg-white shadow-md shadow-stone-900 w-96 mx-auto mt-20 rounded-md text-center py-6 relative">
+				<h1 className="timesroman text-2xl italic font-semibold animation1 py-4">
 					Iniciar Sesión
 				</h1>
-				<form onSubmit={handleLogin} className="px-6">
+				<form onSubmit={handleLogin} className="flex flex-col px-6 gap-3">
 					<input
 						type="email"
 						placeholder="Correo electrónico"
 						value={email}
 						onChange={(e) => setEmail(e.target.value)}
-						className="border w-full rounded px-2 py-2 my-3"
+						className="border-[1px] bg-stone-200 w-full rounded-md px-2 py-2 text-black placeholder:text-stone-600"
 					/>
 					<input
 						type="password"
 						placeholder="Contraseña"
 						value={password}
 						onChange={(e) => setPassword(e.target.value)}
-						className="border w-full rounded px-2 py-2 my-3"
+						className="border-[1px] bg-stone-200 w-full rounded-md px-2 py-2 text-black placeholder:text-stone-600"
 					/>
 					<button
 						type="submit"
-						className="bg-rose-600 hover:bg-rose-700 text-white px-8 py-2 rounded-md shadow-sm shadow-black duration-300"
+						className="bg-rose-600 hover:bg-rose-700 text-white px-8 py-2 rounded-md shadow-sm shadow-black duration-300 mt-10"
 					>
 						Iniciar Sesión
 					</button>
 				</form>
 				<p className="mt-4 text-sm">
-					¿No tienes cuenta?{" "}
+					¿No tienes cuenta?
 					{/* biome-ignore lint/a11y/useKeyWithClickEvents: <explanation> */}
 					<span
 						className="text-rose-600 hover:underline cursor-pointer"
