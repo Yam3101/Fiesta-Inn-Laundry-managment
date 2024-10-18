@@ -54,7 +54,7 @@ const Registro = () => {
 					className="text-rose-600 hover:underline cursor-pointer"
 					onClick={() => navigate("/login")}
 				>
-					Inicia sesion
+					Inicia sesion 
 				</span>
 			</p>
 		</div>

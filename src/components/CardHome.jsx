@@ -1,95 +1,150 @@
-import { useState } from "react";
-import { doc, addDoc, collection, serverTimestamp } from "firebase/firestore";
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { doc, addDoc, collection, serverTimestamp, query, onSnapshot, orderBy } from "firebase/firestore";
 import { db } from "../firebaseConfig";
 
-const CardHome = ({ nameCard, managePath }) => {
-	const [cantidad, setCantidad] = useState("");
-	const [isModalOpen, setIsModalOpen] = useState(false);
+const CardHome = ({ nameCard }) => {
+    const [cantidad, setCantidad] = useState(0);
+    const [showGestion, setShowGestion] = useState(false);
+    const [movimientos, setMovimientos] = useState([]);
+    const [total, setTotal] = useState(0);
 
-	async function agregarCantidad(collectionName, documentId, cantidad) {
-		try {
-			const docRef = doc(db, collectionName, documentId);
+    useEffect(() => {
+        if (showGestion) {
+            const q = query(
+                collection(db, "lavanderia", nameCard.toLowerCase(), "movimientos"),
+                orderBy("timestamp", "asc")
+            );
 
-			await addDoc(collection(docRef, "movimientos"), {
-				cantidad: cantidad,
-				timestamp: serverTimestamp(),
-			});
+            const unsubscribe = onSnapshot(q, (snapshot) => {
+                const movs = [];
+                let sumaTotal = 0;
+                snapshot.forEach((doc) => {
+                    const data = doc.data();
+                    movs.push({
+                        id: doc.id,
+                        cantidad: data.cantidad,
+                        timestamp: data.timestamp?.toDate() || new Date(),
+                    });
+                    sumaTotal += data.cantidad;
+                });
+                setMovimientos(movs);
+                setTotal(sumaTotal);
+            });
 
-			console.log("Cantidad y fecha guardadas con éxito en la subcolección");
-		} catch (e) {
-			console.error("Error al guardar la cantidad: ", e);
-		}
-	}
+            return () => unsubscribe();
+        }
+    }, [showGestion, nameCard]);
 
-	const handleAgregar = () => {
-		if (cantidad) {
-			agregarCantidad(
-				"lavanderia",
-				nameCard.toLowerCase(),
-				Number.parseInt(cantidad),
-			);
-			setCantidad("");
-			setIsModalOpen(false);
-		} else {
-			alert("Por favor, introduce una cantidad.");
-		}
-	};
+    async function agregarCantidad(collectionName, documentId, cantidad) {
+        try {
+            const docRef = doc(db, collectionName, documentId);
 
-	return (
-		<div className="bg-white shadow-md shadow-stone-600 w-80 rounded-md text-center py-6 relative">
-			<h1 className="timesroman text-2xl italic font-semibold">{nameCard}</h1>
-			<img className="py-3" src="" alt="imgRopa" />
-			<div className="flex justify-center gap-1 dmsans items-center">
-				{/* biome-ignore lint/a11y/useButtonType: <explanation> */}
-				<button
-					className="bg-rose-600 hover:bg-rose-700 text-white px-8 py-2 rounded-md shadow-sm shadow-black duration-300"
-					onClick={() => setIsModalOpen(true)}
-				>
-					Agregar
-				</button>
-				<Link to={managePath}>
-					{/* biome-ignore lint/a11y/useButtonType: <explanation> */}
-					<button className="bg-stone-600 hover:bg-stone-700 text-white px-7 py-2 rounded-md shadow-sm shadow-black duration-300">
-						Gestionar
-					</button>
-				</Link>
-			</div>
+            await addDoc(collection(docRef, "movimientos"), {
+                cantidad: cantidad,
+                timestamp: serverTimestamp(),
+            });
 
-			{isModalOpen && (
-				<div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-					<div className="bg-white p-5 rounded-md shadow-md w-80">
-						<h2 className="text-xl font-semibold mb-4">
-							Agregar Cantidad para {nameCard}
-						</h2>
-						<input
-							type="number"
-							placeholder="Introduce la cantidad"
-							value={cantidad}
-							onChange={(e) => setCantidad(e.target.value)}
-							className="border w-full rounded px-2 py-1 mb-4"
-						/>
-						<div className="flex justify-center gap-2">
-							{/* biome-ignore lint/a11y/useButtonType: <explanation> */}
-							<button
-								className="bg-rose-600 text-white px-4 py-2 rounded-md hover:bg-rose-700 duration-300"
-								onClick={handleAgregar}
-							>
-								Guardar
-							</button>
-							{/* biome-ignore lint/a11y/useButtonType: <explanation> */}
-							<button
-								className="bg-gray-500 text-white px-4 py-2 rounded-md hover:bg-gray-600 duration-300"
-								onClick={() => setIsModalOpen(false)}
-							>
-								Cancelar
-							</button>
-						</div>
-					</div>
-				</div>
-			)}
-		</div>
-	);
+            console.log("Cantidad y fecha guardadas con éxito en la subcolección");
+        } catch (e) {
+            console.error("Error al guardar la cantidad: ", e);
+        }
+    }
+
+    const handleAgregar = () => {
+        if (cantidad > 0) {
+            agregarCantidad("lavanderia", nameCard.toLowerCase(), cantidad);
+            setCantidad(0); 
+        } else {
+            alert("La cantidad debe ser mayor a 0.");
+        }
+    };
+
+    const incrementar = () => {
+        setCantidad((prevCantidad) => prevCantidad + 1);
+    };
+
+    const decrementar = () => {
+        setCantidad((prevCantidad) => (prevCantidad > 0 ? prevCantidad - 1 : 0));
+    };
+
+    const toggleGestion = () => {
+        setShowGestion(!showGestion);
+    };
+
+    return (
+        <div className="flex flex-wrap">
+            <div className={`bg-white shadow-md shadow-stone-600 w-80 rounded-md text-center py-6 relative mb-6 ${showGestion ? 'mr-2' : ''}`}>
+                <h1 className="timesroman text-2xl italic font-semibold">{nameCard}</h1>
+                <img className="py-3" src="" alt="imgRopa" />
+                <div className="flex flex-col items-center gap-4 dmsans">
+                    <div className="flex items-center gap-4">
+                        <button
+                            className="bg-rose-600 hover:bg-rose-700 text-white px-4 py-2 rounded-md shadow-sm shadow-black duration-300"
+                            onClick={incrementar}
+                        >
+                            +
+                        </button>
+                        <span className="text-xl">{cantidad}</span>
+                        <button
+                            className="bg-rose-600 hover:bg-rose-700 text-white px-4 py-2 rounded-md shadow-sm shadow-black duration-300"
+                            onClick={decrementar}
+                        >
+                            -
+                        </button>
+                    </div>
+                    <button
+                        className="bg-stone-600 hover:bg-stone-700 text-white px-7 py-2 rounded-md shadow-sm shadow-black duration-300"
+                        onClick={handleAgregar}
+                    >
+                        Guardar
+                    </button>
+                    <button
+                        className="bg-stone-600 hover:bg-stone-700 text-white px-7 py-2 rounded-md shadow-sm shadow-black duration-300"
+                        onClick={toggleGestion}
+                    >
+                        Gestionar
+                    </button>
+                </div>
+            </div>
+
+            {showGestion && (
+                <div className="bg-white shadow-md shadow-stone-500 w-150 rounded-md py-6 ml-1 px-8 pt-3">
+                    <h2 className="text-xl font-semibold mb-4">Movimientos de {nameCard}</h2>
+                    <table className="table-auto w-full text-left border-collapse bg-white shadow-md shadow-stone-500 rounded-md">
+                        <thead>
+                            <tr className="bg-gray-200">
+                                <th className="px-4 py-2 text-center dmsans font-semibold">Cantidad</th>
+                                <th className="px-4 py-2 text-center dmsans font-semibold">Fecha y Hora</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {movimientos.map((movimiento) => (
+                                <tr key={movimiento.id} className="border-b">
+                                    <td className="sm:px-4 px-1 py-2 sm:text-left text-center">
+                                        {movimiento.cantidad}
+                                    </td>
+                                    <td className="px-4 py-2 justify-center items-center flex">
+                                        {movimiento.timestamp.toLocaleString("es-ES", {
+                                            year: "numeric",
+                                            month: "2-digit",
+                                            day: "2-digit",
+                                            hour: "2-digit",
+                                            minute: "2-digit",
+                                            second: "2-digit",
+                                        })}
+                                    </td>
+                                </tr>
+                            ))}
+                            <tr className="font-bold">
+                                <td className="px-4 py-2">Total</td>
+                                <td className="px-4 py-2">{total}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            )}
+        </div>
+    );
 };
 
 export default CardHome;

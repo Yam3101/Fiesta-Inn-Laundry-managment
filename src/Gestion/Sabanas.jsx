@@ -106,6 +106,7 @@ const Sabanas = () => {
 					<h2 className="text-2xl font-semibold mb-4">
 						Movimientos de Sabanas
 					</h2>
+					<div className="overflow-auto max-h-96"> {/* Contenedor con scroll */}
 					<table className="table-auto w-full text-left border-collapse bg-white shadow-md shadow-stone-500 rounded-md">
 						<thead>
 							<tr className="bg-gray-200">
@@ -162,6 +163,7 @@ const Sabanas = () => {
 							</tr>
 						</tbody>
 					</table>
+				</div>
 				</div>
 			</div>
 

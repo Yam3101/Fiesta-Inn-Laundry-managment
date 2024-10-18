@@ -10,7 +10,8 @@ import Fundas from './Gestion/Fundas';
 import Registro from './User/Registro';
 import Login from './User/Login';
 import Perfil from './User/Perfil';
-
+import Reportes from './Reportes/Reportes';
+import GestionMensual from './Mensual/GestionMensual';
 function RoutesTo() {
 	return (
 		<Router>
@@ -19,6 +20,8 @@ function RoutesTo() {
 				<Route path="/registro" element={<Registro />} />
         		<Route path="/login" element={<Login />} />
 				<Route path="/Perfil" element={<Perfil />} />
+				<Route path="/Reporte" element={<Reportes />} />
+				<Route path="/Mes" element={<GestionMensual />} />
 				<Route path="/Gestion/Sabanas" element={<Sabanas />} />
 				<Route path="/Gestion/Toallas" element={<Toallas />} />
 				<Route path="/Gestion/Toallasdemano" element={<Toallasdemano />} />
