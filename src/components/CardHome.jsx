@@ -2,11 +2,17 @@ import { useState, useEffect } from "react";
 import { doc, addDoc, collection, serverTimestamp, query, onSnapshot, orderBy } from "firebase/firestore";
 import { db } from "../firebaseConfig";
 
+<<<<<<< HEAD
 const CardHome = ({ nameCard }) => {
     const [cantidad, setCantidad] = useState(0);
     const [showGestion, setShowGestion] = useState(false);
     const [movimientos, setMovimientos] = useState([]);
     const [total, setTotal] = useState(0);
+=======
+const CardHome = ({ nameCard, managePath, imgCont }) => {
+	const [cantidad, setCantidad] = useState("");
+	const [isModalOpen, setIsModalOpen] = useState(false);
+>>>>>>> 12b9cb5b6298aa7e08fe3ba9aa88c41bcd9c6112
 
     useEffect(() => {
         if (showGestion) {
@@ -39,10 +45,32 @@ const CardHome = ({ nameCard }) => {
         try {
             const docRef = doc(db, collectionName, documentId);
 
+<<<<<<< HEAD
             await addDoc(collection(docRef, "movimientos"), {
                 cantidad: cantidad,
                 timestamp: serverTimestamp(),
             });
+=======
+	return (
+		<div className="bg-white shadow-md shadow-stone-600 w-80 rounded-md text-center py-6 relative justify-center items-center flex flex-col">
+			<h1 className="timesroman text-2xl italic font-semibold">{nameCard}</h1>
+			<img className="p1-3" width={120} src={imgCont} alt="imgRopa" />
+			<div className="flex justify-center gap-1 dmsans items-center">
+				{/* biome-ignore lint/a11y/useButtonType: <explanation> */}
+				<button
+					className="bg-rose-600 hover:bg-rose-700 text-white px-8 py-2 rounded-md shadow-sm shadow-black duration-300"
+					onClick={() => setIsModalOpen(true)}
+				>
+					Agregar
+				</button>
+				<Link to={managePath}>
+					{/* biome-ignore lint/a11y/useButtonType: <explanation> */}
+					<button className="bg-stone-600 hover:bg-stone-700 text-white px-7 py-2 rounded-md shadow-sm shadow-black duration-300">
+						Gestionar
+					</button>
+				</Link>
+			</div>
+>>>>>>> 12b9cb5b6298aa7e08fe3ba9aa88c41bcd9c6112
 
             console.log("Cantidad y fecha guardadas con éxito en la subcolección");
         } catch (e) {
