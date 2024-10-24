@@ -4,7 +4,6 @@ import CardHome from "./components/CardHome";
 import { Link } from "react-router-dom";
 
 function Home() {
-<<<<<<< HEAD
     const [cardSeleccionado, setCardSeleccionado] = useState(null);
 
     return (
