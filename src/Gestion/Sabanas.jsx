@@ -106,64 +106,66 @@ const Sabanas = () => {
 					<h2 className="text-2xl font-semibold mb-4">
 						Movimientos de Sabanas
 					</h2>
-					<div className="overflow-auto max-h-96"> {/* Contenedor con scroll */}
-					<table className="table-auto w-full text-left border-collapse bg-white shadow-md shadow-stone-500 rounded-md">
-						<thead>
-							<tr className="bg-gray-200">
-								<th className="px-4 py-2 text-center dmsans font-semibold">
-									Cantidad
-								</th>
-								<th className="px-4 py-2 text-center dmsans font-semibold">
-									Fecha y Hora
-								</th>
-								<th className="px-4 py-2 text-center dmsans font-semibold">
-									Acciones
-								</th>
-							</tr>
-						</thead>
-						<tbody>
-							{movimientos.map((movimiento) => (
-								<tr key={movimiento.id} className="border-b">
-									<td className="sm:px-4 px-1 py-2 sm:text-left text-center">
-										{movimiento.cantidad}
-									</td>
-									<td className="px-4 py-2 justify-center items-center flex">
-										{movimiento.timestamp.toLocaleString("es-ES", {
-											year: "numeric",
-											month: "2-digit",
-											day: "2-digit",
-											hour: "2-digit",
-											minute: "2-digit",
-											second: "2-digit",
-										})}
-									</td>
-									<td className="px-4 py-2 sm:text-center">
-										{/* biome-ignore lint/a11y/useButtonType: <explanation> */}
-										<button
-											className="bg-teal-600 text-white w-16 px-2 py-1 rounded-md mr-2 hover:bg-teal-700"
-											onClick={() => handleEditar(movimiento)}
-										>
-											Editar
-										</button>
-										{/* biome-ignore lint/a11y/useButtonType: <explanation> */}
-										<button
-											className="bg-red-500 text-white w-16 px-2 py-1 rounded-md hover:bg-red-600"
-											onClick={() => handleBorrar(movimiento)}
-										>
-											Borrar
-										</button>
-									</td>
+					<div className="overflow-auto max-h-96">
+						{" "}
+						{/* Contenedor con scroll */}
+						<table className="table-auto w-full text-left border-collapse bg-white shadow-md shadow-stone-500 rounded-md">
+							<thead>
+								<tr className="bg-gray-200">
+									<th className="px-4 py-2 text-center dmsans font-semibold">
+										Cantidad
+									</th>
+									<th className="px-4 py-2 text-center dmsans font-semibold">
+										Fecha y Hora
+									</th>
+									<th className="px-4 py-2 text-center dmsans font-semibold">
+										Acciones
+									</th>
 								</tr>
-							))}
-							<tr className="font-bold">
-								<td className="px-4 py-2">Total</td>
-								{/* biome-ignore lint/style/useSelfClosingElements: <explanation> */}
-								<td className="px-4 py-2"></td>
-								<td className="px-4 py-2">{total}</td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
+							</thead>
+							<tbody>
+								{movimientos.map((movimiento) => (
+									<tr key={movimiento.id} className="border-b">
+										<td className="sm:px-4 px-1 py-2 sm:text-left text-center">
+											{movimiento.cantidad}
+										</td>
+										<td className="px-4 py-2 justify-center items-center flex">
+											{movimiento.timestamp.toLocaleString("es-ES", {
+												year: "numeric",
+												month: "2-digit",
+												day: "2-digit",
+												hour: "2-digit",
+												minute: "2-digit",
+												second: "2-digit",
+											})}
+										</td>
+										<td className="px-4 py-2 sm:text-center">
+											{/* biome-ignore lint/a11y/useButtonType: <explanation> */}
+											<button
+												className="bg-teal-600 text-white w-16 px-2 py-1 rounded-md mr-2 hover:bg-teal-700"
+												onClick={() => handleEditar(movimiento)}
+											>
+												Editar
+											</button>
+											{/* biome-ignore lint/a11y/useButtonType: <explanation> */}
+											<button
+												className="bg-red-500 text-white w-16 px-2 py-1 rounded-md hover:bg-red-600"
+												onClick={() => handleBorrar(movimiento)}
+											>
+												Borrar
+											</button>
+										</td>
+									</tr>
+								))}
+								<tr className="font-bold">
+									<td className="px-4 py-2">Total</td>
+									{/* biome-ignore lint/style/useSelfClosingElements: <explanation> */}
+									<td className="px-4 py-2"></td>
+									<td className="px-4 py-2">{total}</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
 				</div>
 			</div>
 
