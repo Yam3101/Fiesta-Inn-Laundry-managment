@@ -6,6 +6,7 @@ import { db } from "./firebaseConfig";
 import { addDoc, collection, serverTimestamp, getDocs } from "firebase/firestore";
 
 function Home() {
+
     const [cardSeleccionado, setCardSeleccionado] = useState(null);
     const [mostrarFormulario, setMostrarFormulario] = useState(false);
     const [nombreOtros, setNombreOtros] = useState("");
@@ -189,6 +190,7 @@ function Home() {
             </div>
         </div>
     );
+
 }
 
 export default Home;
