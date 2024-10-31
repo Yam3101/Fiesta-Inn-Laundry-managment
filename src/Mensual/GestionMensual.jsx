@@ -1,10 +1,5 @@
 import { useState, useEffect } from "react";
-import {
-  collection,
-  query,
-  onSnapshot,
-  orderBy,
-} from "firebase/firestore";
+import { collection, query, onSnapshot, orderBy } from "firebase/firestore";
 import { db } from "../firebaseConfig";
 import NavbarHome from "../components/NavbarHome";
 import { Link } from "react-router-dom";
@@ -15,7 +10,7 @@ const GestionMensual = () => {
   const [tipoSeleccionado, setTipoSeleccionado] = useState("sabanas");
   const [anioSeleccionado, setAnioSeleccionado] = useState(new Date().getFullYear());
 
-  const tipos = ["sabanas", "toallas", "fundas de almohada", "tapetes", "duvets", "toallas de mano"];
+  const tipos = ["sabanas", "toallas", "fundas de almohada", "tapetes", "duvets", "toallas de mano", "otros"];
   const anios = Array.from({ length: 10 }, (_, i) => 2024 + i);
 
   useEffect(() => {
@@ -35,11 +30,21 @@ const GestionMensual = () => {
           if (!movimientos[mes]) {
             movimientos[mes] = [];
           }
-          movimientos[mes].push({
-            id: doc.id,
-            cantidad: data.cantidad,
-            timestamp: fecha,
-          });
+          // Verificar si el tipo seleccionado es "otros" para extraer campos adicionales
+          if (tipoSeleccionado === "otros") {
+            movimientos[mes].push({
+              id: doc.id,
+              nombre: data.nombre,
+              cantidad: data.cantidad,
+              timestamp: fecha,
+            });
+          } else {
+            movimientos[mes].push({
+              id: doc.id,
+              cantidad: data.cantidad,
+              timestamp: fecha,
+            });
+          }
         }
       });
       setMovimientosPorMes(movimientos);
@@ -74,14 +79,14 @@ const GestionMensual = () => {
 
   return (
     <div className="overflow-x-hidden w-screen h-screen bg-gray-70">
-        <div className="absolute top-4 left-4">
-				<Link
-					to="/"
-					className="bg-rose-600 text-white px-4 py-2 rounded-md shadow-sm shadow-black hover:shadow-md hover:shadow-black duration-300"
-				>
-					Volver al Inicio
-				</Link>
-			</div>
+      <div className="absolute top-4 left-4">
+        <Link
+          to="/"
+          className="bg-rose-600 text-white px-4 py-2 rounded-md shadow-sm shadow-black hover:shadow-md hover:shadow-black duration-300"
+        >
+          Volver al Inicio
+        </Link>
+      </div>
       <div className="flex justify-end">
         <NavbarHome />
       </div>
@@ -133,30 +138,55 @@ const GestionMensual = () => {
                   <table className="table-auto w-full text-left border-collapse">
                     <thead>
                       <tr className="bg-gray-200">
-                        <th className="px-4 py-2 text-center font-semibold">
-                          Cantidad
-                        </th>
-                        <th className="px-4 py-2 text-center font-semibold">
-                          Fecha y Hora
-                        </th>
+                        {/* Mostrar diferentes columnas para el tipo "otros" */}
+                        {tipoSeleccionado === "otros" ? (
+                          <>
+                            <th className="px-4 py-2 text-center font-semibold">Nombre</th>
+                            <th className="px-4 py-2 text-center font-semibold">Cantidad</th>
+                            <th className="px-4 py-2 text-center font-semibold">Fecha y Hora</th>
+                          </>
+                        ) : (
+                          <>
+                            <th className="px-4 py-2 text-center font-semibold">Cantidad</th>
+                            <th className="px-4 py-2 text-center font-semibold">Fecha y Hora</th>
+                          </>
+                        )}
                       </tr>
                     </thead>
                     <tbody>
                       {movimientosPorMes[index].map((movimiento) => (
                         <tr key={movimiento.id} className="border-b">
-                          <td className="px-4 py-2 text-center">
-                            {movimiento.cantidad}
-                          </td>
-                          <td className="px-4 py-2 text-center">
-                            {movimiento.timestamp.toLocaleString("es-ES", {
-                              year: "numeric",
-                              month: "2-digit",
-                              day: "2-digit",
-                              hour: "2-digit",
-                              minute: "2-digit",
-                              second: "2-digit",
-                            })}
-                          </td>
+                          {/* Mostrar los datos correspondientes para el tipo "otros" */}
+                          {tipoSeleccionado === "otros" ? (
+                            <>
+                              <td className="px-4 py-2 text-center">{movimiento.nombre}</td>
+                              <td className="px-4 py-2 text-center">{movimiento.cantidad}</td>
+                              <td className="px-4 py-2 text-center">
+                                {movimiento.timestamp.toLocaleString("es-ES", {
+                                  year: "numeric",
+                                  month: "2-digit",
+                                  day: "2-digit",
+                                  hour: "2-digit",
+                                  minute: "2-digit",
+                                  second: "2-digit",
+                                })}
+                              </td>
+                            </>
+                          ) : (
+                            <>
+                              <td className="px-4 py-2 text-center">{movimiento.cantidad}</td>
+                              <td className="px-4 py-2 text-center">
+                                {movimiento.timestamp.toLocaleString("es-ES", {
+                                  year: "numeric",
+                                  month: "2-digit",
+                                  day: "2-digit",
+                                  hour: "2-digit",
+                                  minute: "2-digit",
+                                  second: "2-digit",
+                                })}
+                              </td>
+                            </>
+                          )}
                         </tr>
                       ))}
                     </tbody>
