@@ -221,4 +221,4 @@ const Duvets = () => {
 	);
 };
 
-export default Duvets; 
+export default Duvets;
