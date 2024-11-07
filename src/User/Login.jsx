@@ -7,15 +7,20 @@ import NavbarHome from "../components/NavbarHome";
 const Login = () => {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
+	const [error, setError] = useState(""); // Estado para el mensaje de error
+	const [showModal, setShowModal] = useState(false); // Estado para controlar el modal
 	const navigate = useNavigate();
 
 	const handleLogin = async (e) => {
 		e.preventDefault();
+
 		try {
 			await signInWithEmailAndPassword(auth, email, password);
 			navigate("/");
 		} catch (error) {
-			console.error("Error al iniciar sesión:", error);
+			// Si hay un error, mostramos el modal con un mensaje de error
+			setError("Datos incorrectos. Por favor, intenta de nuevo.");
+			setShowModal(true);
 		}
 	};
 
@@ -52,7 +57,6 @@ const Login = () => {
 				</form>
 				<p className="mt-4 text-sm">
 					¿No tienes cuenta?
-					{/* biome-ignore lint/a11y/useKeyWithClickEvents: <explanation> */}
 					<span
 						className="text-rose-600 hover:underline cursor-pointer"
 						onClick={() => navigate("/registro")}
@@ -61,6 +65,21 @@ const Login = () => {
 					</span>
 				</p>
 			</div>
+
+			{/* Modal para mostrar el error */}
+			{showModal && (
+				<div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+					<div className="bg-white p-4 rounded shadow-lg">
+						<p className="text-red-500">{error}</p>
+						<button
+							onClick={() => setShowModal(false)}
+							className="mt-4 bg-rose-600 hover:bg-rose-700 text-white px-4 py-2 rounded"
+						>
+							Cerrar
+						</button>
+					</div>
+				</div>
+			)}
 		</div>
 	);
 };

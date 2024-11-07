@@ -65,7 +65,6 @@ const CardHome = ({ nameCard }) => {
                 timestamp: serverTimestamp(),
             });
 
-            // Si tiene comentario, guardarlo en "reportes"
             if (comentario) {
                 const reportRef = collection(db, "reportes");
                 await addDoc(reportRef, {
@@ -87,7 +86,7 @@ const CardHome = ({ nameCard }) => {
             setComentario("");
             setAddComment(false);
         } else {
-            setShowWarningModal(true); // Mostrar modal de advertencia
+            setShowWarningModal(true); 
         }
     };
 
@@ -105,7 +104,7 @@ const CardHome = ({ nameCard }) => {
     const guardarEdicion = async (id) => {
         const docRef = doc(db, "lavanderia", nameCard.toLowerCase(), "movimientos", id);
         await updateDoc(docRef, {
-            cantidad: parseInt(cantidadEditada) || 0, // Asegúrate de que cantidadEditada sea un número
+            cantidad: parseInt(cantidadEditada) || 0, 
             comentario: comentarioEditado,
         });
         setEditando(null);

@@ -1,12 +1,6 @@
 // App.js
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./Home";
-import Sabanas from './Gestion/Sabanas';
-import Toallas from './Gestion/Toallas';
-import Toallasdemano from './Gestion/Toallasdemano';
-import Tapetes from './Gestion/Tapetes';
-import Duvets from './Gestion/Duvets';
-import Fundas from './Gestion/Fundas';
 import Registro from './User/Registro';
 import Login from './User/Login';
 import Perfil from './User/Perfil';
@@ -22,12 +16,6 @@ function RoutesTo() {
 				<Route path="/Perfil" element={<Perfil />} />
 				<Route path="/Reporte" element={<Reportes />} />
 				<Route path="/Mes" element={<GestionMensual />} />
-				<Route path="/Gestion/Sabanas" element={<Sabanas />} />
-				<Route path="/Gestion/Toallas" element={<Toallas />} />
-				<Route path="/Gestion/Toallasdemano" element={<Toallasdemano />} />
-				<Route path="/Gestion/Tapetes" element={<Tapetes />} />
-				<Route path="/Gestion/Duvets" element={<Duvets />} />
-				<Route path="/Gestion/Fundas" element={<Fundas />} />
 			</Routes>
 		</Router>
 	);

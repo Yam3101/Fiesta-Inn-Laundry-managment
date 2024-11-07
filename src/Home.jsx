@@ -12,6 +12,7 @@ function Home() {
     const [nombreOtros, setNombreOtros] = useState("");
     const [cantidadOtros, setCantidadOtros] = useState(0);
     const [mostrarModal, setMostrarModal] = useState(false);
+    const [mostrarModalError, setMostrarModalError] = useState(false);
     const [datosGuardados, setDatosGuardados] = useState([]);
     const [mostrarTabla, setMostrarTabla] = useState(false);
 
@@ -22,7 +23,7 @@ function Home() {
                 await addDoc(collection(db, "lavanderia", "otros", "movimientos"), {
                     nombre: nombreOtros,
                     cantidad: cantidadOtros,
-                    timestamp: serverTimestamp(),
+                    timestamp: serverTimestamp(), // Aquí se guarda la fecha y hora actual
                 });
                 setNombreOtros("");
                 setCantidadOtros(0);
@@ -32,7 +33,7 @@ function Home() {
                 console.error("Error al guardar en la base de datos:", error);
             }
         } else {
-            alert("Por favor, ingrese un nombre y una cantidad mayor a 0.");
+            setMostrarModalError(true); // Mostrar el modal de advertencia si falta información
         }
     };
 
@@ -105,7 +106,7 @@ function Home() {
                                     <div className="mb-3">
                                         <label className="block text-left font-semibold">Cantidad:</label>
                                         <div className="flex items-center gap-3">
-                                        <button
+                                            <button
                                                 onClick={() => setCantidadOtros((prev) => prev + 1)}
                                                 className="px-3 py-1 bg-gray-300 rounded"
                                             >
@@ -182,7 +183,22 @@ function Home() {
                                 className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-md"
                                 onClick={() => setMostrarModal(false)}
                             >
-                                Aceptar
+                                Cerrar
+                            </button>
+                        </div>
+                    </div>
+                )}
+
+                {/* Modal de advertencia de error */}
+                {mostrarModalError && (
+                    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+                        <div className="bg-white p-5 rounded-md shadow-md text-center">
+                            <p className="mb-4">Por favor ingrese un nombre y una cantidad mayor a 0.</p>
+                            <button
+                                className="bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded-md"
+                                onClick={() => setMostrarModalError(false)}
+                            >
+                                Cerrar
                             </button>
                         </div>
                     </div>
@@ -190,7 +206,6 @@ function Home() {
             </div>
         </div>
     );
-
 }
 
 export default Home;
