@@ -57,6 +57,7 @@ const Login = () => {
 				</form>
 				<p className="mt-4 text-sm">
 					¿No tienes cuenta?
+					{/* biome-ignore lint/a11y/useKeyWithClickEvents: <explanation> */}
 					<span
 						className="text-rose-600 hover:underline cursor-pointer"
 						onClick={() => navigate("/registro")}
@@ -71,6 +72,7 @@ const Login = () => {
 				<div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
 					<div className="bg-white p-4 rounded shadow-lg">
 						<p className="text-red-500">{error}</p>
+						{/* biome-ignore lint/a11y/useButtonType: <explanation> */}
 						<button
 							onClick={() => setShowModal(false)}
 							className="mt-4 bg-rose-600 hover:bg-rose-700 text-white px-4 py-2 rounded"

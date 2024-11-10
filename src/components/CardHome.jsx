@@ -71,31 +71,36 @@ const CardHome = ({ nameCard }) => {
 				timestamp: serverTimestamp(),
 			});
 
-            // Si tiene comentario, guardarlo en "reportes"
-            if (comentario) {
-                const reportRef = collection(db, "reportes");
-                await addDoc(reportRef, {
-                    tipo: nameCard,
-                    cantidad: cantidad,
-                    comentario: comentario,
-                    timestamp: serverTimestamp(),
-                });
-            }
-        } catch (e) {
-            console.error("Error al guardar la cantidad: ", e);
-        }
-    }
+			// Si tiene comentario, guardarlo en "reportes"
+			if (comentario) {
+				const reportRef = collection(db, "reportes");
+				await addDoc(reportRef, {
+					tipo: nameCard,
+					cantidad: cantidad,
+					comentario: comentario,
+					timestamp: serverTimestamp(),
+				});
+			}
+		} catch (e) {
+			console.error("Error al guardar la cantidad: ", e);
+		}
+	}
 
-    const handleAgregar = () => {
-        if (cantidad > 0) {
-            agregarCantidad("lavanderia", nameCard.toLowerCase(), cantidad, addComment ? comentario : "");
-            setCantidad(0);
-            setComentario("");
-            setAddComment(false);
-        } else {
-            setShowWarningModal(true); // Mostrar modal de advertencia
-        }
-    };
+	const handleAgregar = () => {
+		if (cantidad > 0) {
+			agregarCantidad(
+				"lavanderia",
+				nameCard.toLowerCase(),
+				cantidad,
+				addComment ? comentario : "",
+			);
+			setCantidad(0);
+			setComentario("");
+			setAddComment(false);
+		} else {
+			setShowWarningModal(true); // Mostrar modal de advertencia
+		}
+	};
 
 	const incrementar = () => setCantidad((prevCantidad) => prevCantidad + 1);
 	const decrementar = () =>
@@ -109,16 +114,21 @@ const CardHome = ({ nameCard }) => {
 		setShowModal(true);
 	};
 
-    const guardarEdicion = async (id) => {
-        const docRef = doc(db, "lavanderia", nameCard.toLowerCase(), "movimientos", id);
-        await updateDoc(docRef, {
-            cantidad: parseInt(cantidadEditada) || 0, // Asegúrate de que cantidadEditada sea un número
-            comentario: comentarioEditado,
-        });
-        setEditando(null);
-        setShowModal(false);
-    };
-    
+	const guardarEdicion = async (id) => {
+		const docRef = doc(
+			db,
+			"lavanderia",
+			nameCard.toLowerCase(),
+			"movimientos",
+			id,
+		);
+		await updateDoc(docRef, {
+			cantidad: Number.parseInt(cantidadEditada) || 0, // Asegúrate de que cantidadEditada sea un número
+			comentario: comentarioEditado,
+		});
+		setEditando(null);
+		setShowModal(false);
+	};
 
 	const cancelarEdicion = () => {
 		setEditando(null);
