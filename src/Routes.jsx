@@ -2,11 +2,11 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./Home";
 
-import Registro from './User/Registro';
-import Login from './User/Login';
-import Perfil from './User/Perfil';
-import Reportes from './Reportes/Reportes';
-import GestionMensual from './Mensual/GestionMensual';
+import Registro from "./User/Registro";
+import Login from "./User/Login";
+import Perfil from "./User/Perfil";
+import Reportes from "./Reportes/Reportes";
+import GestionMensual from "./Mensual/GestionMensual";
 
 function RoutesTo() {
 	return (
